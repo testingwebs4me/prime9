@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRIME by Asma - Catering & Food Services</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="PRIME - Professional catering services, white label food manufacturing, and hotel/café supply in Saudi Arabia. Quality food solutions for your business.">
+    <meta name="keywords" content="catering saudi arabia, food manufacturing, hotel supply, café supply, corporate catering">
+    <meta property="og:title" content="PRIME by Asma - Catering & Food Services">
+    <meta property="og:description" content="Professional catering and food services in Saudi Arabia">
+    <meta property="og:image" content="https://i.ibb.co/RGmRw9zf/prime-png.jpg">
+    <meta property="og:type" content="website">
+    
+    <!-- Preload critical resources for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -12,7 +30,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #231F20;
             overflow-x: hidden;
@@ -73,16 +91,26 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem; /* Improved touch targets */
             border-radius: 25px;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            min-height: 44px; /* Touch target improvement */
+            display: flex;
+            align-items: center;
+            position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a:focus {
             background: white;
             color: #231F20;
             border-color: white;
+            outline: none;
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Mobile Menu Toggle */
@@ -90,7 +118,11 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            padding: 8px; /* Improved touch target */
+            min-height: 44px;
+            min-width: 44px;
+            justify-content: center;
+            align-items: center;
         }
 
         .mobile-menu-toggle span {
@@ -112,6 +144,11 @@
 
         .mobile-menu-toggle.active span:nth-child(3) {
             transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-menu-toggle:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
         }
 
         /* Mobile Menu */
@@ -149,10 +186,46 @@
             display: block;
             border-radius: 10px;
             transition: all 0.3s ease;
+            min-height: 44px; /* Touch target improvement */
         }
 
-        .mobile-menu ul li a:hover {
+        .mobile-menu ul li a:hover, .mobile-menu ul li a:focus {
             background: rgba(255, 255, 255, 0.1);
+            outline: 2px solid rgba(255, 255, 255, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #231F20;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.2rem;
+            border: none;
+            box-shadow: 0 4px 12px rgba(35, 31, 32, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #444;
+            transform: translateY(-2px);
         }
 
         /* Header */
@@ -188,6 +261,28 @@
             z-index: 2;
             max-width: 800px;
             margin: 0 auto;
+        }
+
+        /* Header animations */
+        .header-content > * {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .header-content .logo { 
+            animation-delay: 0.2s; 
+        }
+        
+        .header-content .brand-by { 
+            animation-delay: 0.4s; 
+        }
+        
+        .header-content .hero-title { 
+            animation-delay: 0.6s; 
+        }
+        
+        .header-content .hero-description { 
+            animation-delay: 0.8s; 
         }
 
         .logo {
@@ -273,10 +368,24 @@
             align-items: center;
             margin-bottom: 6rem;
             gap: 4rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
         }
 
         .service-item:nth-child(even) {
             flex-direction: row-reverse;
+        }
+
+        .service-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .service-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .service-item:nth-child(4) {
+            animation-delay: 0.6s;
         }
 
         .service-content {
@@ -296,6 +405,7 @@
             border-radius: 15px;
             box-shadow: 0 15px 35px rgba(35, 31, 32, 0.15);
             transition: transform 0.3s ease;
+            loading: lazy; /* Lazy loading for performance */
         }
 
         .service-image img:hover {
@@ -373,11 +483,27 @@
             border-radius: 10px;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            min-height: 44px; /* Touch target improvement */
+            cursor: pointer;
         }
 
         .contact-item:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .contact-item a:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
         }
 
         .contact-icon {
@@ -390,7 +516,7 @@
 
         /* Smooth scrolling */
         html {
-            scroll-behavior: auto;
+            scroll-behavior: smooth;
         }
 
         /* Custom animations */
@@ -405,16 +531,17 @@
             }
         }
 
-        .service-item {
-            animation: fadeInUp 0.6s ease forwards;
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
 
-        .service-item:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .service-item:nth-child(3) {
-            animation-delay: 0.4s;
+        .nav-logo:hover {
+            animation: pulse 0.6s ease-in-out;
         }
 
         /* Responsive Design */
@@ -582,6 +709,15 @@
             .contact-text {
                 font-size: 1rem;
             }
+
+            /* Back to top mobile positioning */
+            .back-to-top {
+                bottom: 80px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -644,6 +780,25 @@
             .service-image img {
                 height: 200px;
             }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Prefers reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .header-content > *,
+            .service-item {
+                animation: none;
+                opacity: 1;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
         }
     </style>
     </head>
@@ -677,6 +832,9 @@
             <li><a href="#contact" onclick="closeMobileMenu()">Contact Us</a></li>
         </ul>
     </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑</button>
 
     <!-- Header -->
     <header id="home">
@@ -717,7 +875,7 @@
                     </ul>
                 </div>
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0" alt="Catering Services">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0" alt="Catering Services" loading="lazy" width="500" height="350">
                 </div>
             </div>
 
@@ -733,7 +891,7 @@
                     </ul>
                 </div>
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1628591667015-652ca2f54d4b" alt="White Label Manufacturing">
+                    <img src="https://images.unsplash.com/photo-1628591667015-652ca2f54d4b" alt="White Label Manufacturing" loading="lazy" width="500" height="350">
                 </div>
             </div>
 
@@ -749,7 +907,7 @@
                     </ul>
                 </div>
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff" alt="Supplying Hotels & Cafés">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff" alt="Supplying Hotels & Cafés" loading="lazy" width="500" height="350">
                 </div>
             </div>
         </div>
@@ -762,13 +920,21 @@
             <p>Looking to launch your food line, fuel an event, or stock your café with premium snacks? <strong>We're ready when you are.</strong></p>
             <div class="contact-info">
                 <div class="contact-item">
-                    <span class="contact-icon">📩</span>
-                    <span class="contact-text">Sales@Prime.sa</span>
+                    <a href="mailto:Sales@Prime.sa" aria-label="Send email to Sales@Prime.sa">
+                        <span class="contact-icon">📧</span>
+                        <span class="contact-text">Sales@Prime.sa</span>
+                    </a>
                 </div>
                 <div class="contact-item">
-                    <span class="contact-icon">💬</span>
-                    <a href="https://wa.me/966552651344" target="_blank" style="color: white; text-decoration: none;">
-                        <span class="contact-text">Whatsapp</span>
+                    <a href="https://wa.me/966552651344" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+                        <span class="contact-icon">💬</span>
+                        <span class="contact-text">WhatsApp</span>
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <a href="tel:+966552651344" aria-label="Call us at +966 55 265 1344">
+                        <span class="contact-icon">📞</span>
+                        <span class="contact-text">+966 55 265 1344</span>
                     </a>
                 </div>
             </div>
@@ -776,103 +942,17 @@
     </section>
 
     <script>
-        // Enhanced scroll prevention with multiple approaches
-        function preventAutoScroll() {
-            // Force scroll to top immediately
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-            
-            // Set scroll restoration to manual
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-        }
-
-        // Run immediately
-        preventAutoScroll();
-
-        // Run when DOM is loaded
-        document.addEventListener('DOMContentLoaded', preventAutoScroll);
-
-        // Run when window loads
-        window.addEventListener('load', preventAutoScroll);
-
-        // Prevent any hash-based scrolling
-        window.addEventListener('hashchange', function(e) {
-            e.preventDefault();
-            preventAutoScroll();
-        });
+        // Only prevent initial auto-scroll on page load
+        let pageJustLoaded = true;
         
-        // Block any auto-scrolling on page unload
-        window.addEventListener('beforeunload', preventAutoScroll);
-
-        // Override any smooth scroll behavior temporarily on load
-        const originalScrollBehavior = document.documentElement.style.scrollBehavior;
-        document.documentElement.style.scrollBehavior = 'auto';
+        // Prevent initial auto-scroll
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         
-        // Restore smooth scrolling after page is fully loaded
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.documentElement.style.scrollBehavior = originalScrollBehavior || 'smooth';
-            }, 100);
-        });
-
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            
-            mobileMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
+        // Disable scroll restoration
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
         }
 
-        function closeMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            
-            mobileMenu.classList.remove('active');
-            menuToggle.classList.remove('active');
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            const navContainer = document.querySelector('.nav-container');
-            
-            if (!navContainer.contains(event.target) && mobileMenu.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        });
-
-        // Logo click functionality
-        document.querySelector('.nav-logo').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Close mobile menu on window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                closeMobileMenu();
-            }
-            // Also prevent scroll on resize
-            preventAutoScroll();
-        });
-
-        // Additional protection against anchor scrolling
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
-                const href = e.target.getAttribute('href');
-                if (href === '#' || href === '#home') {
-                    e.preventDefault();
-                    preventAutoScroll();
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+        // Allow normal scrolling after a short delay
