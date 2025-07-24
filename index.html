@@ -762,21 +762,7 @@
     </section>
 
     <script>
-        // FORCE TO TOP IMMEDIATELY - NO DELAYS
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
         
-        // Block any auto-scrolling
-        window.addEventListener('beforeunload', function() {
-            window.scrollTo(0, 0);
-        });
-        
-        // Disable scroll restoration completely
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
             const menuToggle = document.querySelector('.mobile-menu-toggle');
