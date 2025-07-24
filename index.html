@@ -446,16 +446,24 @@
                 height: 60px;
             }
 
-            /* Header Mobile */
+            /* Mobile Menu */
+            .mobile-menu {
+                top: 80px;
+            }
+
+            /* Header Mobile - FIXED */
             header {
-                margin-top: 80px;
-                padding: 2rem 0 15rem;
+                margin-top: 80px; /* Reduced to match mobile nav height */
+                padding: 4rem 0 4rem; /* Reduced padding */
                 background-attachment: scroll;
-                min-height: calc(100vh - 80px);
+                min-height: calc(100vh - 80px); /* Ensure proper height calculation */
+                display: flex;
+                align-items: center;
             }
 
             .header-content {
                 padding: 0 15px;
+                width: 100%;
             }
 
             .logo {
@@ -584,6 +592,12 @@
             .mobile-menu {
                 top: 70px;
                 padding: 1.5rem;
+            }
+
+            /* Header Extra Small Mobile - FIXED */
+            header {
+                margin-top: 70px; /* Match extra small nav height */
+                padding: 3rem 0 3rem; /* Further reduced padding */
             }
 
             .logo {
@@ -762,20 +776,47 @@
     </section>
 
     <script>
-        // FORCE TO TOP IMMEDIATELY - NO DELAYS
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        
-        // Block any auto-scrolling
-        window.addEventListener('beforeunload', function() {
+        // Enhanced scroll prevention with multiple approaches
+        function preventAutoScroll() {
+            // Force scroll to top immediately
             window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            
+            // Set scroll restoration to manual
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+        }
+
+        // Run immediately
+        preventAutoScroll();
+
+        // Run when DOM is loaded
+        document.addEventListener('DOMContentLoaded', preventAutoScroll);
+
+        // Run when window loads
+        window.addEventListener('load', preventAutoScroll);
+
+        // Prevent any hash-based scrolling
+        window.addEventListener('hashchange', function(e) {
+            e.preventDefault();
+            preventAutoScroll();
         });
         
-        // Disable scroll restoration completely
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        // Block any auto-scrolling on page unload
+        window.addEventListener('beforeunload', preventAutoScroll);
+
+        // Override any smooth scroll behavior temporarily on load
+        const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = 'auto';
+        
+        // Restore smooth scrolling after page is fully loaded
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.documentElement.style.scrollBehavior = originalScrollBehavior || 'smooth';
+            }, 100);
+        });
 
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
@@ -817,6 +858,19 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 closeMobileMenu();
+            }
+            // Also prevent scroll on resize
+            preventAutoScroll();
+        });
+
+        // Additional protection against anchor scrolling
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+                const href = e.target.getAttribute('href');
+                if (href === '#' || href === '#home') {
+                    e.preventDefault();
+                    preventAutoScroll();
+                }
             }
         });
     </script>
