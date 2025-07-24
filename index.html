@@ -91,26 +91,16 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            padding: 0.75rem 1.25rem; /* Improved touch targets */
+            padding: 0.5rem 1rem;
             border-radius: 25px;
             transition: all 0.3s ease;
             border: 2px solid transparent;
-            min-height: 44px; /* Touch target improvement */
-            display: flex;
-            align-items: center;
-            position: relative;
         }
 
-        .nav-links a:hover, .nav-links a:focus {
+        .nav-links a:hover {
             background: white;
             color: #231F20;
             border-color: white;
-            outline: none;
-        }
-
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Mobile Menu Toggle */
@@ -140,11 +130,6 @@
 
         .mobile-menu-toggle.active span:nth-child(3) {
             transform: rotate(45deg) translate(-5px, -6px);
-        }
-
-        .mobile-menu-toggle:focus {
-            outline: 2px solid white;
-            outline-offset: 2px;
         }
 
         /* Mobile Menu */
@@ -398,7 +383,6 @@
             border-radius: 15px;
             box-shadow: 0 15px 35px rgba(35, 31, 32, 0.15);
             transition: transform 0.3s ease;
-            loading: lazy; /* Lazy loading for performance */
         }
 
         .service-image img:hover {
@@ -476,8 +460,6 @@
             border-radius: 10px;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            min-height: 44px; /* Touch target improvement */
-            cursor: pointer;
         }
 
         .contact-item:hover {
@@ -491,12 +473,6 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            width: 100%;
-        }
-
-        .contact-item a:focus {
-            outline: 2px solid white;
-            outline-offset: 2px;
         }
 
         .contact-icon {
@@ -522,19 +498,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .nav-logo:hover {
-            animation: pulse 0.6s ease-in-out;
         }
 
         /* Responsive Design */
@@ -780,19 +743,6 @@
                 font-size: 0.9rem;
             }
         }
-
-        /* Prefers reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            .header-content > *,
-            .service-item {
-                animation: none;
-                opacity: 1;
-            }
-            
-            html {
-                scroll-behavior: auto;
-            }
-        }
     </style>
     </head>
 <body>
@@ -827,7 +777,7 @@
     </div>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑</button>
+    <button class="back-to-top" onclick="scrollToTop()">↑</button>
 
     <!-- Header -->
     <header id="home">
@@ -913,19 +863,19 @@
             <p>Looking to launch your food line, fuel an event, or stock your café with premium snacks? <strong>We're ready when you are.</strong></p>
             <div class="contact-info">
                 <div class="contact-item">
-                    <a href="mailto:Sales@Prime.sa" aria-label="Send email to Sales@Prime.sa">
+                    <a href="mailto:Sales@Prime.sa">
                         <span class="contact-icon">📧</span>
                         <span class="contact-text">Sales@Prime.sa</span>
                     </a>
                 </div>
                 <div class="contact-item">
-                    <a href="https://wa.me/966552651344" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+                    <a href="https://wa.me/966552651344" target="_blank" rel="noopener noreferrer">
                         <span class="contact-icon">💬</span>
                         <span class="contact-text">WhatsApp</span>
                     </a>
                 </div>
                 <div class="contact-item">
-                    <a href="tel:+966552651344" aria-label="Call us at +966 55 265 1344">
+                    <a href="tel:+966552651344">
                         <span class="contact-icon">📞</span>
                         <span class="contact-text">+966 55 265 1344</span>
                     </a>
@@ -949,3 +899,106 @@
         }
 
         // Allow normal scrolling after a short delay
+        setTimeout(function() {
+            pageJustLoaded = false;
+        }, 500);
+
+        // Block any auto-scrolling on page unload/reload
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+
+        // Back to Top Button functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (!navContainer.contains(event.target) && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Logo click functionality
+        document.querySelector('.nav-logo').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Only prevent default for logo/home links
+                if (href === '#' || href === '#home') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+                
+                // Allow normal anchor navigation for other links
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const headerOffset = 100; // Account for fixed navigation
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
