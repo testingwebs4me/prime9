@@ -390,7 +390,7 @@
 
         /* Smooth scrolling */
         html {
-            scroll-behavior: auto;
+            scroll-behavior: smooth;
         }
 
         /* Custom animations */
@@ -632,7 +632,7 @@
             }
         }
     </style>
-    </head>
+</head>
 <body>
     <!-- Navigation -->
     <nav>
@@ -762,18 +762,8 @@
     </section>
 
     <script>
-        // FORCE TO TOP IMMEDIATELY - NO DELAYS
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        
-        // Block any auto-scrolling
-        window.addEventListener('beforeunload', function() {
-            window.scrollTo(0, 0);
-        });
-        
-        // Disable scroll restoration completely
-        if ('scrollRestoration' in history) {
+        // Simple scroll restoration prevention only
+        if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
         }
 
